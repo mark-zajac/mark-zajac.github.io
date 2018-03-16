@@ -114,6 +114,20 @@ function isNumber(n) {
   return !isNaN(parseFloat(n)) && isFinite(n);
 }
 
+function indexOf(array, obj) {
+	if(!array)
+		return -1;
+
+	if (!Array.prototype.indexOf){
+		for (var i = 0; i < array.length; ++i) {
+	        if (array[i] === obj) { return i; }
+	    }
+	    return -1;
+	}
+	else
+		return array.indexOf(obj);
+}
+
 function emitEvent(iEvent)
 {
     if(!cpAPIInterface)
@@ -212,7 +226,7 @@ EventEmitterClass.prototype.addEventListener = function(eventName,fn,varName)
 		lCallbacks = this.callbackFns[key];
 	}
 
-	var index = lCallbacks.indexOf(fn);
+	var index = indexOf(lCallbacks, fn);
 	if( index < 0)
 		lCallbacks.push(fn);
 }
@@ -245,7 +259,7 @@ EventEmitterClass.prototype.removeEventListener = function(eventName,fn,varName)
 		lCallbacks = this.callbackFns[key];
 	}
 	
-	var index = lCallbacks.indexOf(fn);
+	var index = indexOf(lCallbacks, fn);
 	if( index > -1){
 		lCallbacks.splice(index, 1);
 	}

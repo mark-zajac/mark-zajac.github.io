@@ -94,12 +94,21 @@ function initializeCP()
 							lCSSLoaded = true;
 							constructDIVs();
 						});
-						var lJSFiles = [  'assets/js/jquery-1.6.1.min.js','assets/js/CPM.js' ];
+						var lJSFiles = [  'assets/js/jquery-1.11.3.min.js','assets/js/CPM.js' ];
 						cpXHRJSLoader.js(lJSFiles,function()
 						{
 							//console.log("js loaded");
-							lJSLoaded = true;
-							constructDIVs();
+
+							var imagesJSONFiles = [ 'dr/imgmd.json' ];
+							cpXHRJSLoader.loadImagesJSON(imagesJSONFiles,function(imageToJSONPathMap){
+								cp.imageToJSONPathMap = imageToJSONPathMap;
+								var imageJSONFiles = [ 'dr/img1.json' ];
+								if(window.location.protocol.substr(0,4) == "file")
+									cpXHRJSLoader.preloadURLs(imageJSONFiles, constructDIVs);
+								lJSLoaded = true;
+								if(window.location.protocol.substr(0,4) != "file" || !imageJSONFiles.length)
+									constructDIVs();
+							});
 						});
 					}
 					document.getElementsByTagName('head')[0].appendChild(script);
