@@ -3,4 +3,5 @@ _site/
 _config-local.yml
 .DS_Store
 assets/.DS_Store
+assets/pre-lecture-video
 
