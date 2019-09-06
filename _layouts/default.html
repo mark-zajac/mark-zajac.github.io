@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+{% include head.html %}
+<body>
+{% include header.html %}
+<main>
+<h1>{{ site.title }}</h1>
+<h2 id="{{ page.title | slugify }}">{{ page.title }}</h2>
+{{ content }}
+</main>
+</body>
+</html>
